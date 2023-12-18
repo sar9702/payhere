@@ -33,6 +33,10 @@ func main() {
 	r.POST("/item/update/:id", handleItemUpdateSubmit)
 	r.GET("/item/update-success/:id", handleItemUpdateSuccess)
 
+	// 아이템 검색
+	r.POST("/item/search-submit", handleItemSearchSubmit)
+	r.GET("/item/search", handleItemSearch)
+
 	r.Run()
 }
 

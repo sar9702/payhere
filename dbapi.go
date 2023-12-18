@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/google/uuid"
 
@@ -75,6 +76,35 @@ func addItem(item Item) error {
 	}
 
 	return nil
+}
+
+// searchItem 함수는 DB에서 검색어로 아이템을 찾아 반환하는 함수이다.
+func searchItem(searchWord string) ([]Item, error) {
+	var items []Item
+
+	db, err := sql.Open("mysql", dns)
+	if err != nil {
+		return items, err
+	}
+	defer db.Close()
+
+	searchQuery := "%" + searchWord + "%"
+	fmt.Println(searchQuery)
+	rows, err := db.Query("SELECT * FROM Item WHERE Name LIKE ? ORDER BY Category, Name", searchQuery)
+	if err != nil {
+		return items, err
+	}
+	
+	for rows.Next() {
+		var item Item
+		err = rows.Scan(&item.ID, &item.Category, &item.Name, &item.Price, &item.Cost, &item.Description, &item.Barcode, &item.ExpirationDate, &item.Size)
+		if err != nil {
+			return []Item{}, err
+		}
+		items = append(items, item)
+	}
+
+	return items, nil
 }
 
 // updateItem 함수는 DB에서 ID로 아이템을 찾아 업데이트하는 함수이다.

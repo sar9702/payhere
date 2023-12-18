@@ -2,7 +2,6 @@
 function delItem(id) {
   response = confirm("아이템을 삭제하시겠습니까?");
   if (!response) {
-    console.log("아니오");
     return;
   }
 
