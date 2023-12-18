@@ -77,6 +77,21 @@ func addItem(item Item) error {
 	return nil
 }
 
+// updateItem 함수는 DB에서 ID로 아이템을 찾아 업데이트하는 함수이다.
+func updateItem(item Item) error {
+	db, err := sql.Open("mysql", dns)
+	if err != nil {
+		return err
+	}
+
+	_, err = db.Exec("UPDATE Item SET Category=?, Name=?, Price=?, Cost=?, Description=?, Barcode=?, ExpirationDate=?, Size=? WHERE ID=?", item.Category, item.Name, item.Price, item.Cost, item.Description, item.Barcode, item.ExpirationDate, item.Size, item.ID)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // rmItem 함수는 DB에서 ID로 아이템을 찾아 삭제하는 함수이다.
 func rmItem(id string) error {
 	db, err := sql.Open("mysql", dns)

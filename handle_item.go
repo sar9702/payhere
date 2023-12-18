@@ -94,3 +94,52 @@ func handleItemRegisterSubmit(context *gin.Context) {
 func handleItemRegisterSuccess(context *gin.Context) {
 	context.HTML(http.StatusOK, "register-success", nil)
 }
+
+// handleItemUpdate 함수는 아이템 수정 페이지를 띄우는 함수이다.
+func handleItemUpdate(context *gin.Context) {
+	id := context.Param("id")
+
+	item, err := itemByID(id)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	context.HTML(http.StatusOK, "edit", gin.H{
+		"product": item,
+	})
+}
+
+// handleItemUpdateSubmit 함수는 아이템 수정 과정을 처리하는 함수이다.
+func handleItemUpdateSubmit(context *gin.Context) {
+	var item Item
+	item.ID = context.Param("id")
+
+	// POST request 데이터를 item에 넣는다.
+	err := context.Bind(&item)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	err = updateItem(item)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	switch context.Request.Header.Get("Accept") {
+	case "application/json":
+		// Response with JSON
+	default:
+		context.Redirect(http.StatusSeeOther, "/item/update-success/" + item.ID)
+	}
+}
+
+// handleItemUpdateSuccess 함수는 아이템 수정 완료 페이지를 띄우는 함수이다.
+func handleItemUpdateSuccess(context *gin.Context) {
+	id := context.Param("id")
+	
+	context.HTML(http.StatusOK, "edit-success", gin.H{
+		"id": id,
+	})
+}

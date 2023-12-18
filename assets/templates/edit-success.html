@@ -1,0 +1,23 @@
+{{define "edit-success"}}
+<!-- Load Header -->
+{{template "header"}}
+
+<body>
+    {{template "navbar"}}
+
+    <div class="container py-5">
+        <div class="pt-3 pb-5">
+            <h2 class="section-heading text-center">Update Item</h2>
+        </div>
+        <div>
+            <h4 class="text-center">Success!</h4>
+        </div>
+        <div class="text-center">
+            <a href="/item/{{.id}}" class="btn btn-primary mt-5">Confirm</a>
+        </div>
+    </div>
+
+    <!-- Load Footer -->
+    {{template "footer"}}
+</body>
+{{end}}

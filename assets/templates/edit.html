@@ -1,4 +1,4 @@
-{{define "register"}}
+{{define "edit"}}
 <!-- Load Header -->
 {{template "header"}}
 
@@ -6,16 +6,16 @@
     {{template "navbar"}}
 
     <div class="container py-5" style="max-width: 50%">
-        <form action="/item/register" method="POST">
+        <form action="/item/update/{{.product.ID}}" method="POST">
             <div class="pt-3 pb-5">
-                <h2 class="section-heading text-center">Register Item</h2>
+                <h2 class="section-heading text-center">Update Item</h2>
             </div>
 
             <div class="row pb-3">
                 <div class="col">
                     <div class="form-group">
                         <label>카테고리</label>
-                        <input type="text" class="form-control" name="category">
+                        <input type="text" class="form-control" name="category" value="{{.product.Category}}">
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                 <div class=" col">
                     <div class="form-group">
                         <label>이름</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" name="name" value="{{.product.Name}}">
                     </div>
                 </div>
             </div>
@@ -33,13 +33,13 @@
                 <div class="col">
                     <div class="form-group">
                         <label>가격</label>
-                        <input type="text" class="form-control" name="price">
+                        <input type="text" class="form-control" name="price" value="{{.product.Price}}">
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label>원가</label>
-                        <input type="text" class="form-control" name="cost">
+                        <input type="text" class="form-control" name="cost" value="{{.product.Cost}}">
                     </div>
                 </div>
             </div>
@@ -48,7 +48,8 @@
                 <div class=" col">
                     <div class="form-group">
                         <label>설명</label>
-                        <textarea type="text" class="form-control" rows="5" name="description"></textarea>
+                        <textarea type="text" class="form-control" rows="5"
+                            name="description"> {{.product.Description}}</textarea>
                     </div>
                 </div>
             </div>
@@ -57,7 +58,7 @@
                 <div class=" col">
                     <div class="form-group">
                         <label>바코드</label>
-                        <input type="text" class="form-control" name="barcode">
+                        <input type="text" class="form-control" name="barcode" value="{{.product.Barcode}}">
                     </div>
                 </div>
             </div>
@@ -66,7 +67,8 @@
                 <div class=" col">
                     <div class="form-group">
                         <label>유통기한</label>
-                        <input type="date" class="form-control" name="expirationDate">
+                        <input type="date" class="form-control" name="expirationDate"
+                            value="{{.product.ExpirationDate}}">
                     </div>
                 </div>
             </div>
@@ -77,15 +79,15 @@
                         <label>사이즈</label>
                         <select class="form-control" name="size">
                             <option value="">----- Select -----</option>
-                            <option value="small">small</option>
-                            <option value="large">large</option>
+                            <option value="small" {{if eq .product.Size "small" }}selected{{end}}>small</option>
+                            <option value="large" {{if eq .product.Size "large" }}selected{{end}}>large</option>
                         </select>
                     </div>
                 </div>
             </div>
 
             <div class="text-center pt-5">
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-warning">Update</button>
             </div>
         </form>
     </div>
