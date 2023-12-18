@@ -78,3 +78,19 @@ func handleItemRegisterSubmit(context *gin.Context) {
 func handleItemRegisterSuccess(context *gin.Context) {
 	context.HTML(http.StatusOK, "register-success", nil)
 }
+
+// handleItemDeleteByID 함수는 아이템 삭제 과정을 처리하는 함수이다.
+func handleItemDeleteByID(context *gin.Context) {
+	id := context.Param("id")
+
+	err := rmItem(id)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	switch context.Request.Header.Get("Accept") {
+	case "application/json":
+		// Response with JSON
+	}
+}

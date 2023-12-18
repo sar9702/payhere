@@ -35,6 +35,7 @@
                         <td>{{$item.Cost}}</td>
                         <td>
                             <a class="badge text-bg-warning" href="/item/view/{{$item.ID}}">Detail</a>
+                            <span class="badge text-bg-danger" onclick="delItem('{{$item.ID}}')">Del</span>
                         </td>
                     </tr>
                     {{end}}
@@ -46,4 +47,9 @@
     <!-- Load Footer -->
     {{template "footer"}}
 </body>
+
+<!--add javascript-->
+<script src="/assets/js/payhere.js"></script>
+<script src="/assets/js/jquery-3.7.1.min.js"></script>
+
 {{end}}

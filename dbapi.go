@@ -76,3 +76,19 @@ func addItem(item Item) error {
 
 	return nil
 }
+
+// rmItem 함수는 DB에서 ID로 아이템을 찾아 삭제하는 함수이다.
+func rmItem(id string) error {
+	db, err := sql.Open("mysql", dns)
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	_, err = db.Exec("DELETE FROM Item WHERE ID=?", id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

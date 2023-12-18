@@ -10,9 +10,10 @@ import (
 func main() {
 	r := gin.Default()
 
-	// Load Template
+	// Load Template and Static Files
 	r.SetFuncMap(template.FuncMap{})
-    r.LoadHTMLGlob("templates/*.html")
+    r.LoadHTMLGlob("assets/templates/*.html")
+	r.Static("/assets", "./assets")
 
 	// 핸들러
 	r.GET("/", handleInit)
@@ -20,6 +21,7 @@ func main() {
 	r.GET("/items", handleItems)
 
 	r.GET("/item/view/:id", handleItemViewByID)
+	r.DELETE("/item/:id", handleItemDeleteByID)
 
 	r.GET("/item/register", handleItemRegister)
 	r.POST("/item/register", handleItemRegisterSubmit)
