@@ -17,6 +17,8 @@ func main() {
 	r.GET("/", handleInit)
 
 	r.GET("/register", handleRegister)
+	r.POST("/register", handleRegisterSubmit)
+	r.GET("/register-success", handleRegisterSuccess)
 
 	r.Run()
 }

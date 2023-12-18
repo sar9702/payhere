@@ -3,6 +3,8 @@ package main
 import (
 	"database/sql"
 
+	"github.com/google/uuid"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -33,4 +35,26 @@ func items() ([]Item, error) {
 	}
 
 	return items, nil
+}
+
+// addItem 함수는 DB에 아이템을 추가하는 함수이다.
+func addItem(item Item) error {
+	db, err := sql.Open("mysql", dns)
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	// 아이템 ID 생성
+	uuid, err := uuid.NewRandom()
+	if err != nil {
+		return err
+	}
+
+	_, err = db.Exec("INSERT INTO Item VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", uuid.String(), item.Category, item.Name, item.Price, item.Cost, item.Description, item.Barcode, item.ExpirationDate, item.Size)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
