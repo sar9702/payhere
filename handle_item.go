@@ -24,6 +24,26 @@ func handleItems(context *gin.Context) {
 	}
 }
 
+// handleItemViewByID 함수는 아이템의 상세 페이지를 띄우는 함수이다.
+func handleItemViewByID(context *gin.Context) {
+	id := context.Param("id")
+
+	item, err := itemByID(id)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	switch context.Request.Header.Get("Accept") {
+	case "application/json":
+		// Response with JSON
+	default:
+		context.HTML(http.StatusOK, "item-detail", gin.H{
+			"product": item,
+		})
+	}
+}
+
 // handleItemRegister 함수는 아이템 등록 페이지를 띄우는 함수이다.
 func handleItemRegister(context *gin.Context) {
 	context.HTML(http.StatusOK, "register", nil)

@@ -1,0 +1,95 @@
+{{define "item-detail"}}
+<!-- Load Header -->
+{{template "header"}}
+
+<body>
+    {{template "navbar"}}
+
+    <div class="container py-5" style="max-width: 50%">
+        <div class="pt-3 pb-5">
+            <h2 class="section-heading text-center">Detail</h2>
+        </div>
+
+        <div class="row pb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label>카테고리</label>
+                    <input type="text" class="form-control" name="category" value="{{.product.Category}}" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pb-3">
+            <div class=" col">
+                <div class="form-group">
+                    <label>이름</label>
+                    <input type="text" class="form-control" name="name" value="{{.product.Name}}" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label>가격</label>
+                    <input type="text" class="form-control" name="price" value="{{.product.Price}}" readonly>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label>원가</label>
+                    <input type="text" class="form-control" name="cost" value="{{.product.Cost}}" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pb-3">
+            <div class=" col">
+                <div class="form-group">
+                    <label>설명</label>
+                    <textarea type="text" class="form-control" rows="5" name="description"
+                        readonly>{{.product.Description}}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pb-3">
+            <div class=" col">
+                <div class="form-group">
+                    <label>바코드</label>
+                    <input type="text" class="form-control" name="barcode" value="{{.product.Barcode}}" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pb-3">
+            <div class=" col">
+                <div class="form-group">
+                    <label>유통기한</label>
+                    <input type="date" class="form-control" name="expirationDate" value="{{.product.ExpirationDate}}"
+                        readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pb-3">
+            <div class=" col">
+                <div class="form-group">
+                    <label>사이즈</label>
+                    <select class="form-control" name="size" readonly>
+                        <option value="small">{{.product.Size}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center pt-5">
+            <button class="btn btn-primary" type="button" onclick="history.go(-1)">돌아가기</button>
+            <button type="submit" class="btn btn-warning">수정</button>
+        </div>
+    </div>
+
+    <!-- Load Footer -->
+    {{template "footer"}}
+</body>
+{{end}}

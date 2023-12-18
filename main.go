@@ -19,6 +19,8 @@ func main() {
 
 	r.GET("/items", handleItems)
 
+	r.GET("/item/view/:id", handleItemViewByID)
+
 	r.GET("/item/register", handleItemRegister)
 	r.POST("/item/register", handleItemRegisterSubmit)
 	r.GET("/item/register-success", handleItemRegisterSuccess)
