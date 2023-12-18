@@ -1,0 +1,96 @@
+{{define "register"}}
+<!-- Load Header -->
+{{template "header"}}
+
+<body>
+    {{template "navbar"}}
+
+    <div class="container py-5" style="max-width: 50%">
+        <form action="/register" method="POST">
+            <div class="pt-3 pb-5">
+                <h2 class="section-heading text-center">Register Item</h2>
+            </div>
+
+            <div class="row pb-3">
+                <div class="col">
+                    <div class="form-group">
+                        <label>카테고리</label>
+                        <input type="text" class="form-control" name="category">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pb-3">
+                <div class=" col">
+                    <div class="form-group">
+                        <label>이름</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pb-3">
+                <div class="col">
+                    <div class="form-group">
+                        <label>가격</label>
+                        <input type="text" class="form-control" name="price">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label>원가</label>
+                        <input type="text" class="form-control" name="cost">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pb-3">
+                <div class=" col">
+                    <div class="form-group">
+                        <label>설명</label>
+                        <textarea type="text" class="form-control" rows="5" name="description"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pb-3">
+                <div class=" col">
+                    <div class="form-group">
+                        <label>바코드</label>
+                        <input type="text" class="form-control" name="barcode">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pb-3">
+                <div class=" col">
+                    <div class="form-group">
+                        <label>유통기한</label>
+                        <input type="date" class="form-control" name="expirationDate">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pb-3">
+                <div class=" col">
+                    <div class="form-group">
+                        <label>사이즈</label>
+                        <select class="form-control" name="size">
+                            <option value="small">----- Select -----</option>
+                            <option value="small">small</option>
+                            <option value="large">large</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center pt-5">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Load Footer -->
+    {{template "footer"}}
+</body>
+{{end}}

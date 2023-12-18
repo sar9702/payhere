@@ -13,8 +13,10 @@ func main() {
 	r.SetFuncMap(template.FuncMap{})
     r.LoadHTMLGlob("templates/*.html")
 
-	// 메인 페이지
+	// 핸들러
 	r.GET("/", handleInit)
+
+	r.GET("/register", handleRegister)
 
 	r.Run()
 }
