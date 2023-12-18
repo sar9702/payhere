@@ -21,39 +21,23 @@
                     <tr>
                         <th scope="col">카테고리</th>
                         <th scope="col">이름</th>
-                        <th scope="col">원가</th>
                         <th scope="col">가격</th>
+                        <th scope="col">원가</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
+                    {{range $item := .products}}
                     <tr>
-                        <td>식품</td>
-                        <td>바나나푸딩</td>
-                        <td>3,500</td>
-                        <td>5,000</td>
+                        <td>{{$item.Category}}</td>
+                        <td>{{$item.Name}}</td>
+                        <td>{{$item.Price}}</td>
+                        <td>{{$item.Cost}}</td>
                         <td>
                             <span class="badge text-bg-warning">상세 내역</span>
                         </td>
                     </tr>
-                    <tr>
-                        <td>음료</td>
-                        <td>슈크림 라떼</td>
-                        <td>5,200</td>
-                        <td>6,500</td>
-                        <td>
-                            <span class="badge text-bg-warning">상세 내역</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>음료</td>
-                        <td>바닐라 라떼</td>
-                        <td>5,200</td>
-                        <td>6,500</td>
-                        <td>
-                            <span class="badge text-bg-warning">상세 내역</span>
-                        </td>
-                    </tr>
+                    {{end}}
                 </tbody>
             </table>
         </div>
