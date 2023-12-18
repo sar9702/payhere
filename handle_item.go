@@ -38,7 +38,7 @@ func handleItemGetByID(context *gin.Context) {
 	case "application/json":
 		// Response with JSON
 	default:
-		context.HTML(http.StatusOK, "item-detail", gin.H{
+		context.HTML(http.StatusOK, "detail", gin.H{
 			"product": item,
 		})
 	}

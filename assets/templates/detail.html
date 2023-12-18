@@ -1,4 +1,4 @@
-{{define "item-detail"}}
+{{define "detail"}}
 <!-- Load Header -->
 {{template "header"}}
 
@@ -84,7 +84,7 @@
         </div>
 
         <div class="text-center pt-5">
-            <button class="btn btn-primary" type="button" onclick="history.go(-1)">돌아가기</button>
+            <button class="btn btn-secondary" type="button" onclick="history.go(-1)">돌아가기</button>
             <a class="btn btn-warning" href="/item/update/{{.product.ID}}">수정</a>
         </div>
     </div>

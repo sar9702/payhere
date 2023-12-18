@@ -34,8 +34,10 @@
                         <td>{{$item.Price}}</td>
                         <td>{{$item.Cost}}</td>
                         <td>
-                            <a class="badge text-bg-warning" href="/item/{{$item.ID}}">Detail</a>
-                            <span class="badge text-bg-danger" onclick="delItem('{{$item.ID}}')">Del</span>
+                            <a class="badge text-bg-warning" href="/item/{{$item.ID}}"
+                                style="text-decoration-line: none">Detail</a>
+                            <span class="badge text-bg-danger" onclick="delItem('{{$item.ID}}')"
+                                style="cursor: pointer">Del</span>
                         </td>
                     </tr>
                     {{end}}
