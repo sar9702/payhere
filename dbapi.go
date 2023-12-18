@@ -20,7 +20,7 @@ func items() ([]Item, error) {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT * FROM Item")
+	rows, err := db.Query("SELECT * FROM Item ORDER BY Category, Name")
 	if err != nil {
 		return items, err
 	}
