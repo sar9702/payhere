@@ -20,7 +20,7 @@ func main() {
 
 	r.GET("/items", handleItems)
 
-	r.GET("/item/view/:id", handleItemViewByID)
+	r.GET("/item/:id", handleItemGetByID)
 	r.DELETE("/item/:id", handleItemDeleteByID)
 
 	r.GET("/item/register", handleItemRegister)

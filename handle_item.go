@@ -24,8 +24,8 @@ func handleItems(context *gin.Context) {
 	}
 }
 
-// handleItemViewByID 함수는 아이템의 상세 페이지를 띄우는 함수이다.
-func handleItemViewByID(context *gin.Context) {
+// handleItemGetByID 함수는 아이템의 상세 페이지를 띄우는 함수이다.
+func handleItemGetByID(context *gin.Context) {
 	id := context.Param("id")
 
 	item, err := itemByID(id)
@@ -41,6 +41,22 @@ func handleItemViewByID(context *gin.Context) {
 		context.HTML(http.StatusOK, "item-detail", gin.H{
 			"product": item,
 		})
+	}
+}
+
+// handleItemDeleteByID 함수는 아이템 삭제 과정을 처리하는 함수이다.
+func handleItemDeleteByID(context *gin.Context) {
+	id := context.Param("id")
+
+	err := rmItem(id)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	switch context.Request.Header.Get("Accept") {
+	case "application/json":
+		// Response with JSON
 	}
 }
 
@@ -77,20 +93,4 @@ func handleItemRegisterSubmit(context *gin.Context) {
 // handleItemRegisterSuccess 함수는 아이템 등록 완료 페이지를 띄우는 함수이다.
 func handleItemRegisterSuccess(context *gin.Context) {
 	context.HTML(http.StatusOK, "register-success", nil)
-}
-
-// handleItemDeleteByID 함수는 아이템 삭제 과정을 처리하는 함수이다.
-func handleItemDeleteByID(context *gin.Context) {
-	id := context.Param("id")
-
-	err := rmItem(id)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	switch context.Request.Header.Get("Accept") {
-	case "application/json":
-		// Response with JSON
-	}
 }
