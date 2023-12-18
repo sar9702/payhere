@@ -7,13 +7,30 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// handleRegister 함수는 아이템 등록 페이지를 띄우는 함수이다.
-func handleRegister(context *gin.Context) {
+// handleItems 함수는 메인 페이지를 띄우는 함수이다.
+func handleItems(context *gin.Context) {
+	items, err := items()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	switch context.Request.Header.Get("Accept") {
+	case "application/json":
+		// Response with JSON
+	default:
+		context.HTML(http.StatusOK, "init", gin.H{
+			"products": items,
+		})
+	}
+}
+
+// handleItemRegister 함수는 아이템 등록 페이지를 띄우는 함수이다.
+func handleItemRegister(context *gin.Context) {
 	context.HTML(http.StatusOK, "register", nil)
 }
 
-// handleRegisterSubmit 함수는 아이템 등록 과정을 처리하는 함수이다.
-func handleRegisterSubmit(context *gin.Context) {
+// handleItemRegisterSubmit 함수는 아이템 등록 과정을 처리하는 함수이다.
+func handleItemRegisterSubmit(context *gin.Context) {
 	var item Item
 
 	// POST request 데이터를 item에 넣는다.
@@ -33,11 +50,11 @@ func handleRegisterSubmit(context *gin.Context) {
 	case "application/json":
 		// Response with JSON
 	default:
-		context.Redirect(http.StatusSeeOther, "/register-success")
+		context.Redirect(http.StatusSeeOther, "/item/register-success")
 	}
 }
 
-// handleRegisterSuccess 함수는 아이템 등록 완료 페이지를 띄우는 함수이다.
-func handleRegisterSuccess(context *gin.Context) {
+// handleItemRegisterSuccess 함수는 아이템 등록 완료 페이지를 띄우는 함수이다.
+func handleItemRegisterSuccess(context *gin.Context) {
 	context.HTML(http.StatusOK, "register-success", nil)
 }
