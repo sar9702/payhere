@@ -22,10 +22,14 @@ func main() {
 	r.GET("/", handleInit)
 	r.GET("/item/detail", handleItemDetail)
 	r.GET("/item/register", handleItemRegister)
+	r.GET("/item/register-success", handleItemRegisterSuccess)
 
 	// Rest API
+	r.POST("/api/item", handleAPIItemRegister)
+
 	r.GET("/api/items", handleAPIItems)
 	r.GET("/api/item/:id", handleAPIItemByID)
+
 	r.DELETE("/api/item/:id", handleAPIItemDeleteByID)
 
 	// r.GET("/item/:id", handleItemGetByID)

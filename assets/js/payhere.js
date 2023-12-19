@@ -32,7 +32,7 @@ function getItemRow(item) {
   `;
 }
 
-// setInitPage 함수는 메인 페이지가 로드되면 실행되는 함수이다.
+// setInitPage 함수는 메인 페이지가 로드되면 실행되는 함수이다. 테이블에 아이템 행 리스트를 추가한다.
 function setInitPage() {
   let token = getCookie("SessionToken");
 
@@ -107,6 +107,41 @@ function delItem(id) {
     success: function () {
       alert("아이템이 삭제되었습니다.");
       window.location.reload(); // 페이지 새로고침
+    },
+    error: function (response) {
+      alert(
+        `code: ${response.responseJSON.meta.code}\nmsg: ${response.responseJSON.meta.message}`
+      );
+    },
+  });
+}
+
+// registerItem 함수는 아이템 등록 페이지에서 등록 버튼을 클릭하면 실행되는 함수이다.
+function registerItem() {
+  let token = getCookie("SessionToken");
+
+  let sendData = {
+    category: $("#category").val(),
+    name: $("#name").val(),
+    price: $("#price").val(),
+    cost: $("#cost").val(),
+    description: $("#description").val(),
+    barcode: $("#barcode").val(),
+    expirationDate: $("#expirationDate").val(),
+    size: $("#size option:selected").val(),
+  };
+
+  $.ajax({
+    url: `/api/item`,
+    type: "post",
+    headers: {
+      Authorization: "Basic " + token,
+    },
+    data: sendData,
+    dataType: "json",
+    success: function () {
+      // 아이템 등록 완료 페이지로 리다이렉트
+      window.location.href = "/item/register-success";
     },
     error: function (response) {
       alert(

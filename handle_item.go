@@ -48,51 +48,19 @@ func handleItemRegister(context *gin.Context) {
 	})
 }
 
-// // handleItemRegisterSubmit 함수는 아이템 등록 과정을 처리하는 함수이다.
-// func handleItemRegisterSubmit(context *gin.Context) {
-// 	// 로그인 정보가 유효한지 확인한다.
-// 	_, err := getTokenFromHeader(context)
-// 	if err != nil {
-// 		context.Redirect(http.StatusSeeOther, "/signin")
-// 		return
-// 	}
+// handleItemRegisterSuccess 함수는 아이템 등록 완료 페이지를 띄우는 함수이다.
+func handleItemRegisterSuccess(context *gin.Context) {
+	// 로그인 정보가 유효한지 확인한다.
+	token, err := getTokenFromCookie(context)
+	if err != nil {
+		context.Redirect(http.StatusSeeOther, "/signin")
+		return
+	}
 
-// 	var item Item
-
-// 	// POST request 데이터를 item에 넣는다.
-// 	err = context.Bind(&item)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		return
-// 	}
-
-// 	err = addItem(item)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		return
-// 	}
-
-// 	switch context.Request.Header.Get("Accept") {
-// 	case "application/json":
-// 		// Response with JSON
-// 	default:
-// 		context.Redirect(http.StatusSeeOther, "/item/register-success")
-// 	}
-// }
-
-// // handleItemRegisterSuccess 함수는 아이템 등록 완료 페이지를 띄우는 함수이다.
-// func handleItemRegisterSuccess(context *gin.Context) {
-// 	// 로그인 정보가 유효한지 확인한다.
-// 	token, err := getTokenFromHeader(context)
-// 	if err != nil {
-// 		context.Redirect(http.StatusSeeOther, "/signin")
-// 		return
-// 	}
-
-// 	context.HTML(http.StatusOK, "register-success", gin.H{
-// 		"token": token,
-// 	})
-// }
+	context.HTML(http.StatusOK, "register-success", gin.H{
+		"token": token,
+	})
+}
 
 // // handleItemUpdate 함수는 아이템 수정 페이지를 띄우는 함수이다.
 // func handleItemUpdate(context *gin.Context) {
