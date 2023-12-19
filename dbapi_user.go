@@ -30,3 +30,21 @@ func addUser(user User) error {
 
 	return nil
 }
+
+// userByID 함수는 DB에서 아이디로 사용자를 찾아 반환하는 함수이다.
+func userByID(id string) (User, error) {
+	var user User
+
+	db, err := sql.Open("mysql", dns)
+	if err != nil {
+		return user, err
+	}
+	defer db.Close()
+
+	err = db.QueryRow("SELECT * FROM User WHERE ID=?", id).Scan(&user.ID, &user.Password, &user.Token, &user.SignKey)
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
+}

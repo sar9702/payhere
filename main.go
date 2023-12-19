@@ -45,6 +45,8 @@ func main() {
 	r.GET("/signup", handleSignUp)
 	r.POST("/signup", handleSignUpSubmit)
 	r.GET("/signup-success", handleSignUpSuccess)
+	r.GET("/signin", handleSignIn)
+	r.POST("/signin", handleSignInSubmit)
 
 	r.Run()
 }
