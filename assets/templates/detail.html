@@ -2,7 +2,7 @@
 <!-- Load Header -->
 {{template "header"}}
 
-<body>
+<body onload="setDetailPage();">
     {{template "navbar" .}}
 
     <div class="container py-5" style="max-width: 50%">
@@ -14,7 +14,7 @@
             <div class="col">
                 <div class="form-group">
                     <label>카테고리</label>
-                    <input type="text" class="form-control" name="category" value="{{.product.Category}}" readonly>
+                    <input type="text" class="form-control" id="category" value="" readonly>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
             <div class=" col">
                 <div class="form-group">
                     <label>이름</label>
-                    <input type="text" class="form-control" name="name" value="{{.product.Name}}" readonly>
+                    <input type="text" class="form-control" id="name" value="" readonly>
                 </div>
             </div>
         </div>
@@ -32,13 +32,13 @@
             <div class="col">
                 <div class="form-group">
                     <label>가격</label>
-                    <input type="text" class="form-control" name="price" value="{{.product.Price}}" readonly>
+                    <input type="text" class="form-control" id="price" value="" readonly>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label>원가</label>
-                    <input type="text" class="form-control" name="cost" value="{{.product.Cost}}" readonly>
+                    <input type="text" class="form-control" id="cost" value="" readonly>
                 </div>
             </div>
         </div>
@@ -47,8 +47,7 @@
             <div class=" col">
                 <div class="form-group">
                     <label>설명</label>
-                    <textarea type="text" class="form-control" rows="5" name="description"
-                        readonly>{{.product.Description}}</textarea>
+                    <textarea type="text" class="form-control" rows="5" id="description" readonly></textarea>
                 </div>
             </div>
         </div>
@@ -57,7 +56,7 @@
             <div class=" col">
                 <div class="form-group">
                     <label>바코드</label>
-                    <input type="text" class="form-control" name="barcode" value="{{.product.Barcode}}" readonly>
+                    <input type="text" class="form-control" id="barcode" value="" readonly>
                 </div>
             </div>
         </div>
@@ -66,8 +65,7 @@
             <div class=" col">
                 <div class="form-group">
                     <label>유통기한</label>
-                    <input type="date" class="form-control" name="expirationDate" value="{{.product.ExpirationDate}}"
-                        readonly>
+                    <input type="date" class="form-control" id="expirationDate" value="" readonly>
                 </div>
             </div>
         </div>
@@ -76,8 +74,8 @@
             <div class=" col">
                 <div class="form-group">
                     <label>사이즈</label>
-                    <select class="form-control" name="size" readonly>
-                        <option value="{{.product.Size}}">{{.product.Size}}</option>
+                    <select class="form-control" id="size" readonly>
+                        <option></option>
                     </select>
                 </div>
             </div>
@@ -85,7 +83,7 @@
 
         <div class="text-center pt-5">
             <button class="btn btn-secondary" type="button" onclick="history.go(-1)">돌아가기</button>
-            <a class="btn btn-warning" href="/item/update/{{.product.ID}}">수정</a>
+            <a class="btn btn-warning" href="#">수정</a>
         </div>
     </div>
 
@@ -94,6 +92,8 @@
 </body>
 
 <!--add javascript-->
+<script src="/assets/js/jquery-3.7.1.min.js"></script>
+<script src="/assets/js/payhere.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>

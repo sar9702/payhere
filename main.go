@@ -20,9 +20,11 @@ func main() {
 
 	/* 핸들러 */
 	r.GET("/", handleInit)
+	r.GET("/item/detail", handleItemDetail)
 
 	// Rest API
 	r.GET("/api/items", handleAPIItems)
+	r.GET("/api/item/:id", handleAPIItemByID)
 
 	// r.GET("/item/:id", handleItemGetByID)
 	// r.DELETE("/item/:id", handleItemDeleteByID)

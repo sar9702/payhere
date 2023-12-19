@@ -20,33 +20,19 @@ func handleInit(context *gin.Context) {
 	})
 }
 
-// handleItemGetByID 함수는 아이템의 상세 페이지를 띄우는 함수이다.
-// func handleItemGetByID(context *gin.Context) {
-// 	// 로그인 정보가 유효한지 확인한다.
-// 	token, err := getTokenFromHeader(context)
-// 	if err != nil {
-// 		context.Redirect(http.StatusSeeOther, "/signin")
-// 		return
-// 	}
+// handleItemDetail 함수는 아이템의 상세 페이지를 띄우는 함수이다.
+func handleItemDetail(context *gin.Context) {
+	// 로그인 정보가 유효한지 확인한다.
+	token, err := getTokenFromCookie(context)
+	if err != nil {
+		context.Redirect(http.StatusSeeOther, "/signin")
+		return
+	}
 
-// 	id := context.Param("id")
-
-// 	item, err := itemByID(id)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		return
-// 	}
-
-// 	switch context.Request.Header.Get("Accept") {
-// 	case "application/json":
-// 		// Response with JSON
-// 	default:
-// 		context.HTML(http.StatusOK, "detail", gin.H{
-// 			"token": token,
-// 			"product": item,
-// 		})
-// 	}
-// }
+	context.HTML(http.StatusOK, "detail", gin.H{
+		"token": token,
+	})
+}
 
 // // handleItemDeleteByID 함수는 아이템 삭제 과정을 처리하는 함수이다.
 // func handleItemDeleteByID(context *gin.Context) {

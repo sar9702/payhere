@@ -30,20 +30,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    {{range $item := .products}}
-                    <tr>
-                        <td>{{$item.Category}}</td>
-                        <td>{{$item.Name}}</td>
-                        <td>{{$item.Price}}</td>
-                        <td>{{$item.Cost}}</td>
-                        <td>
-                            <a class="badge text-bg-warning" href="/item/{{$item.ID}}"
-                                style="text-decoration-line: none">Detail</a>
-                            <span class="badge text-bg-danger" onclick="delItem('{{$item.ID}}')"
-                                style="cursor: pointer">Del</span>
-                        </td>
-                    </tr>
-                    {{end}}
+                    <!-- 아이템 리스트 -->
                 </tbody>
             </table>
         </div>
