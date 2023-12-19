@@ -11,6 +11,16 @@
                     <a class="nav-link active" aria-current="page" href="/item/register">등록하기</a>
                 </li>
             </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        {{.token.ID}}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/signout">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
