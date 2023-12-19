@@ -9,8 +9,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var dns = "root:@tcp(localhost:3306)/payhere"
-
 // items 함수는 DB에서 모든 아이템 리스트를 가져오는 함수이다.
 func items() ([]Item, error) {
 	var items []Item

@@ -7,6 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var (
+	dns = "root:@tcp(localhost:3306)/payhere"
+)
+
 func main() {
 	r := gin.Default()
 
@@ -36,6 +40,11 @@ func main() {
 	// 아이템 검색
 	r.POST("/item/search-submit", handleItemSearchSubmit)
 	r.GET("/item/search", handleItemSearch)
+
+	// 회원가입
+	r.GET("/signup", handleSignUp)
+	r.POST("/signup", handleSignUpSubmit)
+	r.GET("/signup-success", handleSignUpSuccess)
 
 	r.Run()
 }
