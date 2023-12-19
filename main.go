@@ -25,6 +25,7 @@ func main() {
 	// Rest API
 	r.GET("/api/items", handleAPIItems)
 	r.GET("/api/item/:id", handleAPIItemByID)
+	r.DELETE("/api/item/:id", handleAPIItemDeleteByID)
 
 	// r.GET("/item/:id", handleItemGetByID)
 	// r.DELETE("/item/:id", handleItemDeleteByID)

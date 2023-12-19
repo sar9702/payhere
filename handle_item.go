@@ -34,22 +34,6 @@ func handleItemDetail(context *gin.Context) {
 	})
 }
 
-// // handleItemDeleteByID 함수는 아이템 삭제 과정을 처리하는 함수이다.
-// func handleItemDeleteByID(context *gin.Context) {
-// 	id := context.Param("id")
-
-// 	err := rmItem(id)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		return
-// 	}
-
-// 	switch context.Request.Header.Get("Accept") {
-// 	case "application/json":
-// 		// Response with JSON
-// 	}
-// }
-
 // // handleItemRegister 함수는 아이템 등록 페이지를 띄우는 함수이다.
 // func handleItemRegister(context *gin.Context) {
 // 	// 로그인 정보가 유효한지 확인한다.

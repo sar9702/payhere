@@ -95,19 +95,23 @@ function delItem(id) {
     return;
   }
 
+  let token = getCookie("SessionToken");
+
   $.ajax({
-    url: `/item/${id}`,
+    url: `/api/item/${id}`,
     type: "delete",
+    headers: {
+      Authorization: "Basic " + token,
+    },
+    dataType: "json",
     success: function () {
       alert("아이템이 삭제되었습니다.");
       window.location.reload(); // 페이지 새로고침
     },
-    error: function (request, status, error) {
+    error: function (response) {
       alert(
-        `code: ${request.status}\nstatus: ${status}\nmsg: ${request.responseText}\nerror: ${error}`
+        `code: ${response.responseJSON.meta.code}\nmsg: ${response.responseJSON.meta.message}`
       );
     },
   });
-
-  console.log(id);
 }
