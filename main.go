@@ -21,6 +21,7 @@ func main() {
 	/* 핸들러 */
 	r.GET("/", handleInit)
 	r.GET("/item/detail", handleItemDetail)
+	r.GET("/item/register", handleItemRegister)
 
 	// Rest API
 	r.GET("/api/items", handleAPIItems)

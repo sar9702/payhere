@@ -34,19 +34,19 @@ func handleItemDetail(context *gin.Context) {
 	})
 }
 
-// // handleItemRegister 함수는 아이템 등록 페이지를 띄우는 함수이다.
-// func handleItemRegister(context *gin.Context) {
-// 	// 로그인 정보가 유효한지 확인한다.
-// 	token, err := getTokenFromHeader(context)
-// 	if err != nil {
-// 		context.Redirect(http.StatusSeeOther, "/signin")
-// 		return
-// 	}
+// handleItemRegister 함수는 아이템 등록 페이지를 띄우는 함수이다.
+func handleItemRegister(context *gin.Context) {
+	// 로그인 정보가 유효한지 확인한다.
+	token, err := getTokenFromCookie(context)
+	if err != nil {
+		context.Redirect(http.StatusSeeOther, "/signin")
+		return
+	}
 
-// 	context.HTML(http.StatusOK, "register", gin.H{
-// 		"token": token,
-// 	})
-// }
+	context.HTML(http.StatusOK, "register", gin.H{
+		"token": token,
+	})
+}
 
 // // handleItemRegisterSubmit 함수는 아이템 등록 과정을 처리하는 함수이다.
 // func handleItemRegisterSubmit(context *gin.Context) {
