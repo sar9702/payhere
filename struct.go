@@ -17,6 +17,7 @@ type Item struct {
 	Barcode        string `form:"barcode"`         // 바코드
 	ExpirationDate string `form:"expirationDate"`  // 유통기한
 	Size           string `form:"size"`            // 사이즈 small or large
+	Chosung	       string `form:"chosung"`         // 한글 초성
 }
 
 // Token 자료구조. JWT 방식을 사용한다. restAPI 사용시 보안체크를 위해 http 헤더에 들어간다.

@@ -43,9 +43,5 @@ func main() {
 	r.PUT("/api/item/:id", handleAPIItemUpdateByID)
 	r.DELETE("/api/item/:id", handleAPIItemDeleteByID)
 
-	// // 아이템 검색
-	// r.POST("/item/search-submit", handleItemSearchSubmit)
-	// r.GET("/item/search", handleItemSearch)
-
 	r.Run()
 }

@@ -8,8 +8,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-// items 함수는 DB에서 모든 아이템 리스트를 가져오는 함수이다.
-func items() ([]Item, error) {
+// allItems 함수는 DB에서 모든 아이템 리스트를 가져오는 함수이다.
+func allItems() ([]Item, error) {
 	var items []Item
 
 	db, err := sql.Open("mysql", dns)
@@ -25,9 +25,9 @@ func items() ([]Item, error) {
 	
 	for rows.Next() {
 		var item Item
-		err = rows.Scan(&item.ID, &item.Category, &item.Name, &item.Price, &item.Cost, &item.Description, &item.Barcode, &item.ExpirationDate, &item.Size)
+		err = rows.Scan(&item.ID, &item.Category, &item.Name, &item.Price, &item.Cost, &item.Description, &item.Barcode, &item.ExpirationDate, &item.Size, &item.Chosung)
 		if err != nil {
-			return []Item{}, err
+			return nil, err
 		}
 		items = append(items, item)
 	}
@@ -45,7 +45,7 @@ func itemByID(id string) (Item, error) {
 	}
 	defer db.Close()
 
-	err = db.QueryRow("SELECT * FROM Item WHERE ID=?", id).Scan(&item.ID, &item.Category, &item.Name, &item.Price, &item.Cost, &item.Description, &item.Barcode, &item.ExpirationDate, &item.Size)
+	err = db.QueryRow("SELECT * FROM Item WHERE ID=?", id).Scan(&item.ID, &item.Category, &item.Name, &item.Price, &item.Cost, &item.Description, &item.Barcode, &item.ExpirationDate, &item.Size, &item.Chosung)
 	if err != nil {
 		return item, err
 	}
@@ -67,7 +67,10 @@ func addItem(item Item) error {
 		return err
 	}
 
-	_, err = db.Exec("INSERT INTO Item VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", uuid.String(), item.Category, item.Name, item.Price, item.Cost, item.Description, item.Barcode, item.ExpirationDate, item.Size)
+	// 아이템 이름의 초성 계산
+	item.Chosung = getChosung(item.Name)
+
+	_, err = db.Exec("INSERT INTO Item VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", uuid.String(), item.Category, item.Name, item.Price, item.Cost, item.Description, item.Barcode, item.ExpirationDate, item.Size, item.Chosung)
 	if err != nil {
 		return err
 	}
@@ -87,14 +90,14 @@ func searchItem(searchWord string) ([]Item, error) {
 
 	searchQuery := "%" + searchWord + "%"
 	
-	rows, err := db.Query("SELECT * FROM Item WHERE Name LIKE ? ORDER BY Category, Name", searchQuery)
+	rows, err := db.Query("SELECT * FROM Item WHERE Name LIKE ? OR Chosung LIKE ? ORDER BY Category, Name", searchQuery, searchQuery)
 	if err != nil {
 		return items, err
 	}
 	
 	for rows.Next() {
 		var item Item
-		err = rows.Scan(&item.ID, &item.Category, &item.Name, &item.Price, &item.Cost, &item.Description, &item.Barcode, &item.ExpirationDate, &item.Size)
+		err = rows.Scan(&item.ID, &item.Category, &item.Name, &item.Price, &item.Cost, &item.Description, &item.Barcode, &item.ExpirationDate, &item.Size, &item.Chosung)
 		if err != nil {
 			return []Item{}, err
 		}
@@ -111,7 +114,10 @@ func updateItem(item Item) error {
 		return err
 	}
 
-	_, err = db.Exec("UPDATE Item SET Category=?, Name=?, Price=?, Cost=?, Description=?, Barcode=?, ExpirationDate=?, Size=? WHERE ID=?", item.Category, item.Name, item.Price, item.Cost, item.Description, item.Barcode, item.ExpirationDate, item.Size, item.ID)
+	// 아이템 이름의 초성 계산
+	item.Chosung = getChosung(item.Name)
+
+	_, err = db.Exec("UPDATE Item SET Category=?, Name=?, Price=?, Cost=?, Description=?, Barcode=?, ExpirationDate=?, Size=?, Chosung=? WHERE ID=?", item.Category, item.Name, item.Price, item.Cost, item.Description, item.Barcode, item.ExpirationDate, item.Size, item.Chosung, item.ID)
 	if err != nil {
 		return err
 	}
