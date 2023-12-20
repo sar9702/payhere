@@ -200,3 +200,29 @@ function editItem() {
     },
   });
 }
+
+// signUpCheck 함수는 회원 가입 페이지에서 submit 하기 전에 빈 칸이 있는지 확인하는 함수이다.
+function signUpCheck() {
+  let id = $("input[name=id]").val();
+  if (id == "") {
+    alert("휴대폰번호를 입력해주세요.");
+    return false;
+  }
+  if (!/^[0-9]+$/.test(id)) {
+    alert("휴대폰번호에는 숫자만 입력해주세요.");
+    return false;
+  }
+
+  let password = $("input[name=password]").val();
+  let confirmPW = $("input[name=confirmPassword]").val();
+  if (password == "" || confirmPW == "") {
+    alert("비밀번호를 입력해주세요");
+    return false;
+  }
+
+  if (password != confirmPW) {
+    alert("입력한 비밀번호가 일치하지 않습니다.");
+    return false;
+  }
+  return true;
+}

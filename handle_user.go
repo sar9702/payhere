@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -20,7 +19,9 @@ func handleSignUpSubmit(context *gin.Context) {
 
 	encryptedPW, err := encrypt(password)
 	if err != nil{
-		fmt.Println(err)
+		context.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"errors": err.Error(),
+		})
 		return
 	}
 
@@ -31,13 +32,17 @@ func handleSignUpSubmit(context *gin.Context) {
 
 	err = user.CreateToken()
 	if err != nil {
-		fmt.Println(err)
+		context.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"errors": err.Error(),
+		})
 		return
 	}
 
 	err = addUser(user)
 	if err != nil {
-		fmt.Println(err)
+		context.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"errors": err.Error(),
+		})
 		return
 	}
 
