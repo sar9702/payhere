@@ -24,6 +24,9 @@ func main() {
 	r.GET("/item/register", handleItemRegister)
 	r.GET("/item/register-success", handleItemRegisterSuccess)
 
+	r.GET("/signup", handleSignUp)
+	r.POST("/signup", handleSignUpSubmit)
+	r.GET("/signup-success", handleSignUpSuccess)
 	r.GET("/signin", handleSignIn)
 	r.POST("/signin", handleSignInSubmit)
 	r.POST("/signout", handleSignOut)
@@ -44,11 +47,6 @@ func main() {
 	// // 아이템 검색
 	// r.POST("/item/search-submit", handleItemSearchSubmit)
 	// r.GET("/item/search", handleItemSearch)
-
-	// 회원가입
-	// r.GET("/signup", handleSignUp)
-	// r.POST("/signup", handleSignUpSubmit)
-	// r.GET("/signup-success", handleSignUpSuccess)
 
 	r.Run()
 }
