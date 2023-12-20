@@ -8,33 +8,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-// allItems 함수는 DB에서 모든 아이템 리스트를 가져오는 함수이다.
-func allItems() ([]Item, error) {
-	var items []Item
-
-	db, err := sql.Open("mysql", dns)
-	if err != nil {
-		return items, err
-	}
-	defer db.Close()
-
-	rows, err := db.Query("SELECT * FROM Item ORDER BY Category, Name")
-	if err != nil {
-		return items, err
-	}
-	
-	for rows.Next() {
-		var item Item
-		err = rows.Scan(&item.ID, &item.Category, &item.Name, &item.Price, &item.Cost, &item.Description, &item.Barcode, &item.ExpirationDate, &item.Size, &item.Chosung)
-		if err != nil {
-			return nil, err
-		}
-		items = append(items, item)
-	}
-
-	return items, nil
-}
-
 // itemByID 함수는 DB에서 ID로 아이템을 찾아 반환하는 함수이다.
 func itemByID(id string) (Item, error) {
 	var item Item
@@ -79,7 +52,7 @@ func addItem(item Item) error {
 }
 
 // searchItem 함수는 DB에서 검색어로 아이템을 찾아 반환하는 함수이다.
-func searchItem(searchWord string) ([]Item, error) {
+func searchItem(searchWord string, cursor string) ([]Item, error) {
 	var items []Item
 
 	db, err := sql.Open("mysql", dns)
@@ -90,7 +63,13 @@ func searchItem(searchWord string) ([]Item, error) {
 
 	searchQuery := "%" + searchWord + "%"
 	
-	rows, err := db.Query("SELECT * FROM Item WHERE Name LIKE ? OR Chosung LIKE ? ORDER BY Category, Name", searchQuery, searchQuery)
+	rows, err := db.Query(`
+	SELECT *
+	FROM Item
+	WHERE (ID > ?) AND (Name LIKE ? OR Chosung LIKE ?)
+	ORDER BY ID
+	LIMIT 10
+	`, cursor, searchQuery, searchQuery)
 	if err != nil {
 		return items, err
 	}

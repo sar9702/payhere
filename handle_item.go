@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -106,5 +107,5 @@ func handleSearchSubmit(context *gin.Context) {
 	searchWord := context.PostForm("searchWord")
 	searchWord = strings.Trim(searchWord, " ")  // 앞뒤 공백 제거
 
-	context.Redirect(http.StatusSeeOther, "/items/search?searchword=" + searchWord)
+	context.Redirect(http.StatusSeeOther, fmt.Sprintf("/items/search?searchword=%s", searchWord))
 }

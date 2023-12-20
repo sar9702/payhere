@@ -66,21 +66,16 @@ func handleAPIItems(context *gin.Context) {
 		searchWord = ""
 	}
 
-	var items []Item
-	if searchWord == "" {
-		items, err = allItems()
-		if err != nil {
-			jsonData := genResponseJson(http.StatusInternalServerError, err.Error(), nil)
-			context.JSON(http.StatusInternalServerError, jsonData)
-			return
-		}
-	} else {
-		items, err = searchItem(searchWord)
-		if err != nil {
-			jsonData := genResponseJson(http.StatusInternalServerError, err.Error(), nil)
-			context.JSON(http.StatusInternalServerError, jsonData)
-			return
-		}
+	cursor := context.Query("cursor")
+	if cursor == "null" {
+		cursor = ""
+	}
+
+	items, err := searchItem(searchWord, cursor)
+	if err != nil {
+		jsonData := genResponseJson(http.StatusInternalServerError, err.Error(), nil)
+		context.JSON(http.StatusInternalServerError, jsonData)
+		return
 	}
 
 	jsonData := genResponseJson(http.StatusOK, "ok", items)

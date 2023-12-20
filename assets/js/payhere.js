@@ -35,15 +35,17 @@ function getItemRow(item) {
 // setInitPage 함수는 메인 페이지가 로드되면 실행되는 함수이다. 테이블에 아이템 행 리스트를 추가한다.
 function setInitPage() {
   let token = getCookie("SessionToken");
+  let prevCursor = getURLParam("prevcursor");
+  let cursor = getURLParam("cursor");
 
   // URL에 searchWord 파라미터가 있으면 검색창에 검색어를 넣어준다.
   let searchWord = getURLParam("searchword");
-  if (searchWord) {
+  if (searchWord && searchWord != "null") {
     $("#searchWord").val(searchWord);
   }
 
   $.ajax({
-    url: `/api/items?searchword=${searchWord}`,
+    url: `/api/items?searchword=${searchWord}&prevcursor=${prevCursor}&cursor=${cursor}`,
     type: "get",
     headers: {
       Authorization: "Basic " + token,
@@ -54,6 +56,17 @@ function setInitPage() {
         let tr = getItemRow(item);
         $("#itemTable tbody").append(tr);
       }
+
+      $("#pagePrevBtn").attr(
+        "href",
+        `/items/search?searchword=${searchWord}&cursor=${prevCursor}`
+      );
+      $("#pageNextBtn").attr(
+        "href",
+        `/items/search?searchword=${searchWord}&prevcursor=${cursor}&cursor=${
+          jsonData.data[jsonData.data.length - 1].ID
+        }`
+      );
     },
     error: function (response) {
       alert(
