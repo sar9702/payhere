@@ -58,7 +58,7 @@ function setInitPage() {
 }
 
 // setDetailPage 함수는 아이템 상세 페이지가 로드되면 실행되는 함수이다. 아이템 정보를 가져와 input에 넣어준다.
-function setDetailPage() {
+function setDetailPage(isEditPage = false) {
   let token = getCookie("SessionToken");
   let id = getURLParam("id");
 
@@ -78,7 +78,15 @@ function setDetailPage() {
       $("#description").text(item.Description);
       $("#barcode").val(item.Barcode);
       $("#expirationDate").val(item.ExpirationDate);
-      $("#size option").text(item.Size);
+
+      if (!isEditPage) {
+        // 상세 페이지
+        $("#size option").text(item.Size);
+        $("#editBtn").attr("href", `/item/edit?id=${item.ID}`);
+      } else {
+        // 수정 페이지
+        $("#size").val(item.Size).attr("selected", true);
+      }
     },
     error: function (response) {
       alert(
@@ -142,6 +150,42 @@ function registerItem() {
     success: function () {
       // 아이템 등록 완료 페이지로 리다이렉트
       window.location.href = "/item/register-success";
+    },
+    error: function (response) {
+      alert(
+        `code: ${response.responseJSON.meta.code}\nmsg: ${response.responseJSON.meta.message}`
+      );
+    },
+  });
+}
+
+// editItem 함수는 아이템 수정 페이지에서 수정 버튼을 클릭하면 실행되는 함수이다.
+function editItem() {
+  let token = getCookie("SessionToken");
+  let id = getURLParam("id");
+
+  let sendData = {
+    category: $("#category").val(),
+    name: $("#name").val(),
+    price: $("#price").val(),
+    cost: $("#cost").val(),
+    description: $("#description").val(),
+    barcode: $("#barcode").val(),
+    expirationDate: $("#expirationDate").val(),
+    size: $("#size option:selected").val(),
+  };
+
+  $.ajax({
+    url: `/api/item/${id}`,
+    type: "put",
+    headers: {
+      Authorization: "Basic " + token,
+    },
+    data: sendData,
+    dataType: "json",
+    success: function () {
+      // 아이템 수정 완료 페이지로 리다이렉트
+      window.location.href = `/item/edit-success/${id}`;
     },
     error: function (response) {
       alert(

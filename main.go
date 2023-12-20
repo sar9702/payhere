@@ -23,6 +23,8 @@ func main() {
 	r.GET("/item/detail", handleItemDetail)
 	r.GET("/item/register", handleItemRegister)
 	r.GET("/item/register-success", handleItemRegisterSuccess)
+	r.GET("/item/edit", handleItemEdit)
+	r.GET("/item/edit-success/:id", handleItemEditSuccess)
 
 	r.GET("/signup", handleSignUp)
 	r.POST("/signup", handleSignUpSubmit)
@@ -32,17 +34,12 @@ func main() {
 	r.POST("/signout", handleSignOut)
 
 	// Rest API
-	r.POST("/api/item", handleAPIItemRegister)
-
 	r.GET("/api/items", handleAPIItems)
+
+	r.POST("/api/item", handleAPIItemRegister)
 	r.GET("/api/item/:id", handleAPIItemByID)
-
+	r.PUT("/api/item/:id", handleAPIItemUpdateByID)
 	r.DELETE("/api/item/:id", handleAPIItemDeleteByID)
-
-	// // 아이템 수정
-	// r.GET("/item/update/:id", handleItemUpdate)
-	// r.POST("/item/update/:id", handleItemUpdateSubmit)
-	// r.GET("/item/update-success/:id", handleItemUpdateSuccess)
 
 	// // 아이템 검색
 	// r.POST("/item/search-submit", handleItemSearchSubmit)
