@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 
 	"github.com/google/uuid"
 
@@ -87,7 +86,7 @@ func searchItem(searchWord string) ([]Item, error) {
 	defer db.Close()
 
 	searchQuery := "%" + searchWord + "%"
-	fmt.Println(searchQuery)
+	
 	rows, err := db.Query("SELECT * FROM Item WHERE Name LIKE ? ORDER BY Category, Name", searchQuery)
 	if err != nil {
 		return items, err

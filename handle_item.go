@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -93,46 +94,17 @@ func handleItemEditSuccess(context *gin.Context) {
 	})
 }
 
-// // handleItemSearchSubmit 함수는 URL에 검색어 데이터를 포함하여 리다이렉트하는 함수이다.
-// func handleItemSearchSubmit(context *gin.Context) {
-// 	// 로그인 정보가 유효한지 확인한다.
-// 	_, err := getTokenFromHeader(context)
-// 	if err != nil {
-// 		context.Redirect(http.StatusSeeOther, "/signin")
-// 		return
-// 	}
+// handleSearchSubmit 함수는 URL에 검색어 데이터를 포함하여 리다이렉트하는 함수이다.
+func handleSearchSubmit(context *gin.Context) {
+	// 로그인 정보가 유효한지 확인한다.
+	_, err := getTokenFromCookie(context)
+	if err != nil {
+		context.Redirect(http.StatusSeeOther, "/signin")
+		return
+	}
 
-// 	searchWord := context.PostForm("searchWord")
-// 	searchWord = strings.Trim(searchWord, " ")  // 앞뒤 공백 제거
+	searchWord := context.PostForm("searchWord")
+	searchWord = strings.Trim(searchWord, " ")  // 앞뒤 공백 제거
 
-// 	context.Redirect(http.StatusSeeOther, "/item/search?searchword=" + searchWord)
-// }
-
-// // handleItemSearch 함수는 아이템 검색 과정을 처리하는 함수이다.
-// func handleItemSearch(context *gin.Context) {
-// 	// 로그인 정보가 유효한지 확인한다.
-// 	token, err := getTokenFromHeader(context)
-// 	if err != nil {
-// 		context.Redirect(http.StatusSeeOther, "/signin")
-// 		return
-// 	}
-
-// 	searchWord := context.Query("searchword")
-
-// 	items, err := searchItem(searchWord)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		return
-// 	}
-
-// 	switch context.Request.Header.Get("Accept") {
-// 	case "application/json":
-// 		// Response with JSON
-// 	default:
-// 		context.HTML(http.StatusOK, "init", gin.H{
-// 			"token": token,
-// 			"searchWord": searchWord,
-// 			"products": items,
-// 		})
-// 	}
-// }
+	context.Redirect(http.StatusSeeOther, "/items/search?searchword=" + searchWord)
+}

@@ -8,9 +8,9 @@
     <div class="container py-5">
         <!-- 검색창 -->
         <div class="row">
-            <form action="/item/search-submit" method="POST">
+            <form action="/items/search" method="POST">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="searchWord"
+                    <input type="text" class="form-control" placeholder="Search" id="searchWord" name="searchWord"
                         value="{{.searchWord}}">
                     <button type="submit" class="input-group-text">Search</button>
                 </div>

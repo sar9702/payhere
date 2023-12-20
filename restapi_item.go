@@ -61,7 +61,9 @@ func handleAPIItems(context *gin.Context) {
 		return
 	}
 
-	items, err := items()
+	searchWord := context.Query("searchword")
+
+	items, err := searchItem(searchWord)
 	if err != nil {
 		jsonData := genResponseJson(http.StatusInternalServerError, err.Error(), nil)
 		context.JSON(http.StatusInternalServerError, jsonData)

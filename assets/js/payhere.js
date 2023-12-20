@@ -36,8 +36,14 @@ function getItemRow(item) {
 function setInitPage() {
   let token = getCookie("SessionToken");
 
+  // URL에 searchWord 파라미터가 있으면 검색창에 검색어를 넣어준다.
+  let searchWord = getURLParam("searchword");
+  if (searchWord) {
+    $("#searchWord").val(searchWord);
+  }
+
   $.ajax({
-    url: `/api/items`,
+    url: `/api/items?searchword=${searchWord}`,
     type: "get",
     headers: {
       Authorization: "Basic " + token,

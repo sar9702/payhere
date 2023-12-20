@@ -20,6 +20,8 @@ func main() {
 
 	/* 핸들러 */
 	r.GET("/", handleInit)
+	r.GET("/items/search", handleInit)
+	r.POST("/items/search", handleSearchSubmit)
 	r.GET("/item/detail", handleItemDetail)
 	r.GET("/item/register", handleItemRegister)
 	r.GET("/item/register-success", handleItemRegisterSuccess)
