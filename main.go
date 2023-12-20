@@ -26,6 +26,7 @@ func main() {
 
 	r.GET("/signin", handleSignIn)
 	r.POST("/signin", handleSignInSubmit)
+	r.POST("/signout", handleSignOut)
 
 	// Rest API
 	r.POST("/api/item", handleAPIItemRegister)

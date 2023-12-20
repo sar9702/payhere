@@ -81,3 +81,11 @@ func handleSignInSubmit(context *gin.Context) {
 
 	context.Redirect(http.StatusSeeOther, "/")
 }
+
+// handleSignOut 함수는 쿠키에 저장된 Token, SignKey를 지워 로그아웃하는 함수이다.
+func handleSignOut(context *gin.Context) {
+	context.SetCookie("SessionToken", "", -1, "", "", false, false)
+	context.SetCookie("SessionSignKey", "", -1, "", "", false, false)
+
+	context.Redirect(http.StatusSeeOther, "/signin")
+}
